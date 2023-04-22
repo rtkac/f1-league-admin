@@ -1,0 +1,56 @@
+version: "3"
+services:
+  f1-league-admin:
+    container_name: f1-league-admin
+    build: .
+    image: f1-league-admin:latest
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_HOST: f1-league-admin-database
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PORT: ${DATABASE_PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      NODE_ENV: ${NODE_ENV}
+    volumes:
+      - ./config:/opt/app/config
+      - ./src:/opt/app/src
+      - ./package.json:/opt/package.json
+      - ./yarn.lock:/opt/yarn.lock # Replace with package-lock.json if using npm
+      - ./.env:/opt/app/.env
+    ports:
+      - "1337:1337"
+    networks:
+      - f1-league-admin
+    depends_on:
+      - f1-league-admin-database
+
+  f1-league-admin-database:
+    image: postgres:12.0-alpine
+    container_name: f1-league-admin-database
+    platform: linux/amd64 #for platform error on Apple M1 chips
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      - f1-league-admin-data:/var/lib/postgresql/data/ #using a volume
+      #- ./data:/var/lib/postgresql/data/ # if you want to use a bind folder
+    ports:
+      - "5432:5432"
+    networks:
+      - f1-league-admin
+
+volumes:
+    f1-league-admin-data:
+
+networks:
+  f1-league-admin:
+    name: f1-league-admin-network
+    driver: bridge
