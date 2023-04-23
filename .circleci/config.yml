@@ -22,5 +22,10 @@ jobs:
             DATABASE_PORT: 5432
             DATABASE_NAME: f1_league_admin
             DATABASE_SSL: 'false'
+            DATABASE_USERNAME: strapi
+            DATABASE_PASSWORD: strapi
+            NODE_ENV: development
+            JWT_SECRET: 5xxPspalhhtHuLcDhl+wBA==
+            ADMIN_JWT_SECRET: FByTpKS4H8neKhvZEspoKQ==
           command: |
             docker-compose up
