@@ -1,0 +1,18 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: docker:17.05.0-ce-git
+
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Start container
+          environment:
+            DATABASE_CLIENT: postgres
+            DATABASE_HOST: 127.0.0.1
+            DATABASE_PORT: 5432
+            DATABASE_NAME: f1_league_admin
+            DATABASE_SSL: 'false'
+          command: docker-compose up
