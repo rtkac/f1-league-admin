@@ -7,9 +7,9 @@ export default ({ env }) => {
     mysql: {
       connection: {
         connectionString: env("DATABASE_URL"),
-        host: env("DATABASE_HOST", "localhost"),
+        host: env("DATABASE_HOST", "127.0.01"),
         port: env.int("DATABASE_PORT", 3306),
-        database: env("DATABASE_NAME", "strapi"),
+        database: env("DATABASE_NAME", "f1-league-admin"),
         user: env("DATABASE_USERNAME", "strapi"),
         password: env("DATABASE_PASSWORD", "strapi"),
         ssl: env.bool("DATABASE_SSL", false) && {
