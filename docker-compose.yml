@@ -20,7 +20,8 @@ services:
       - ./config:/opt/app/config
       - ./src:/opt/app/src
       - ./package.json:/opt/package.json
-      - ./yarn.lock:/opt/yarn.lock # Replace with package-lock.json if using npm
+      - ./package-lock.json:/opt/package-lock.json
+      - ./.npmrc:/opt/.npmrc
       - ./.env:/opt/app/.env
     ports:
       - "1337:1337"

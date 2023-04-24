@@ -1,15 +1,15 @@
 import path from "path";
 
 export default ({ env }) => {
-  const client = env("DATABASE_CLIENT", "sqlite");
+  const client = env("DATABASE_CLIENT", "postgres");
 
   const connections = {
     mysql: {
       connection: {
         connectionString: env("DATABASE_URL"),
-        host: env("DATABASE_HOST", "localhost"),
+        host: env("DATABASE_HOST", "127.0.0.1"),
         port: env.int("DATABASE_PORT", 3306),
-        database: env("DATABASE_NAME", "strapi"),
+        database: env("DATABASE_NAME", "f1-league-admin"),
         user: env("DATABASE_USERNAME", "strapi"),
         password: env("DATABASE_PASSWORD", "strapi"),
         ssl: env.bool("DATABASE_SSL", false) && {
@@ -58,7 +58,7 @@ export default ({ env }) => {
         connectionString: env("DATABASE_URL"),
         host: env("DATABASE_HOST", "127.0.0.1"),
         port: env.int("DATABASE_PORT", 5432),
-        database: env("DATABASE_NAME", "f1_league_admin"),
+        database: env("DATABASE_NAME", "f1-league-admin"),
         user: env("DATABASE_USERNAME", "strapi"),
         password: env("DATABASE_PASSWORD", "strapi"),
         ssl: env.bool("DATABASE_SSL", false) && {
